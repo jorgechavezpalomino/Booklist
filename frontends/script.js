@@ -10,7 +10,6 @@ const apiUrl = "http://localhost:3000/api/books";
 
 
 
-// Show a message
 function showMessage(text, isError = false  ) {
     message.textContent = text;
     if (message.className = isError) {
