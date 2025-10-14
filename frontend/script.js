@@ -6,7 +6,7 @@ const authorInput = document.getElementById("author");
 const message = document.getElementById("message");
 const booksList = document.getElementById("booksList");
 const resetButton = document.getElementById("resetButton");
-const apiUrl = "http://localhost:3000/api/books";
+const apiUrl = "https://booklist-server-mcu0.onrender.com/api/books";
 
 
 
