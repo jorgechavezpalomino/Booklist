@@ -1,13 +1,11 @@
 
 const addForm = document.getElementById("addForm");
-
 const titleInput = document.getElementById("title");
 const authorInput = document.getElementById("author");
 const message = document.getElementById("message");
 const booksList = document.getElementById("booksList");
 const resetButton = document.getElementById("resetButton");
 const apiUrl = "https://booklist-server-mcu0.onrender.com/api/books";
-
 
 
 function showMessage(text, isError = false  ) {
@@ -26,7 +24,6 @@ function showMessage(text, isError = false  ) {
     
 }
 
-// Load and render books
 async function loadBooks() {
     booksList.innerHTML = ""; // clean
     try {
@@ -37,9 +34,6 @@ async function loadBooks() {
             throw new Error("Error in response");
         }
 
-        // after "throw", execute "catch" and finish
-
-        // convert the response to Json
         const books = await res.json();
 
         if (!books.length) {
@@ -55,15 +49,14 @@ async function loadBooks() {
 
         ).join('');
 
-    } catch (err) {
-        console.error(err);
+    } catch (error) {
+        console.error(error);
         booksList.innerHTML= "<li>Error loading books</li>";
-        showMessage("Error loading book: " + err.message, true);
+        showMessage("Error loading book: " + error.message, true);
     }    
 
 }
 
-// Add a book
 addForm.addEventListener("submit",async (e)=>{
 
     e.preventDefault();
@@ -91,13 +84,12 @@ addForm.addEventListener("submit",async (e)=>{
         showMessage("Book added correctly");
         addForm.reset();
         loadBooks();
-    } catch (err) {
-        showMessage("Error: " + err.message, true)
+    } catch (error) {
+        showMessage("Error: " + error.message, true)
     }
 
 })
 
-// Reset List
 resetButton.addEventListener("click",async () => {
     if (!confirm("¿Are you sure to delete all books?")) 
         return;{
@@ -112,13 +104,13 @@ resetButton.addEventListener("click",async () => {
         showMessage("Book list deleted");
         loadBooks();
     } catch (error) {
-        showMessage("Error: " + err.message,true);
+        showMessage("Error: " + error.message,true);
     }
 });
 
-// Delete a book
+
 booksList.addEventListener('click',async(e) => {
-    // check if click was in a button with the deletevutton class
+    
     if (e.target.classList.contains("deleteButton")) {
         const id = e.target.dataset.id;
         if (!confirm("Are you sure to delete this book?")) {
@@ -133,7 +125,7 @@ booksList.addEventListener('click',async(e) => {
             showMessage("The book was deleted correctly");
             loadBooks();
         } catch (error) {
-            showMessage("Error to deleted the book: " + err.message, true);
+            showMessage("Error to deleted the book: " + error.message, true);
         }
     }
 });

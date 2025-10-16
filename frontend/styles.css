@@ -9,7 +9,6 @@ li { padding:8px 0; border-bottom:1px solid #eee; display:flex; align-items:cent
 
 .hidden { display: none; }
 
-/* To make labels invisible */
 .visuallyHidden {
   position: absolute !important;
   width: 1px; height: 1px;
