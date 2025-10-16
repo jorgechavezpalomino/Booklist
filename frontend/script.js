@@ -6,7 +6,7 @@ const message = document.getElementById("message");
 const booksList = document.getElementById("booksList");
 const resetButton = document.getElementById("resetButton");
 //const apiUrl = "https://booklist-server-mcu0.onrender.com/api/books";
-const apiUrl = "http://localhost:3000";
+const apiUrl = "http://localhost:3000/api/books";
 
 
 function showMessage(text, isError = false  ) {
