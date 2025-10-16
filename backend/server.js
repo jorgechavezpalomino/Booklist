@@ -24,14 +24,6 @@ app.get("/api/books", async (req, res) => {
   }
 });
 
-
-/* function getNextId() {
-  if (books.length > 0) {
-    return books[books.length - 1].id + 1;
-  } else {
-    return 1;
-  }
-}*/
 app.post("/api/books", async(req, res) => {
   try {
     const{title, author} = req.body;
