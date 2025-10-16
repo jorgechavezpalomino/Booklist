@@ -36,9 +36,20 @@ app.get("/api/books", async (req, res) => {
   } else {
     return 1;
   }
-}
-
-app.post("/api/books", (req, res) => {
+}*/
+app.post("/api/books", async(req, res) => {
+  try {
+    const{title, author} = req.body;
+    const result = await client.query(
+      "INSERT INTO books (title,author) VALUES ($1, $2);",[title,author]
+    );
+    res.status(201).json({message: "Book added successfully"});
+  } catch (error) {
+    console.error("Error adding book: ", error);
+    res.status(500).json({error: "Error adding book"});
+  }
+});
+/*app.post("/api/books", (req, res) => {
   const { title, author } = req.body;
 
   if (!title || !author) {
