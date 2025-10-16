@@ -10,11 +10,6 @@ const PORT = 3000;
 app.use(express.json());
 app.use(cors());
 
-//let books = [
-  //{ id: 1, title: "Cien años de soledad", author: "Gabriel García Márquez" },
-  //{ id: 2, title: "Don Quijote de la Mancha", author: "Miguel de Cervantes" }
-//];
-
 app.get("/", (req, res) => {
   res.send("API de libros funcionando");
 });
