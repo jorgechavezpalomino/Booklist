@@ -7,14 +7,11 @@ const client = new pg.Client({
     ssl: {rejectUnauthorized: false},
 });
 
-//async function connectDB() {
-    try {
-        await client.connect();
-        console.log("Connected to PostgresSQL")
-    } catch (err) {
-        console.error("Error to connect", err);
-    }
-//}
+try {
+    await client.connect();
+    console.log("Connected to PostgresSQL")
+} catch (err) {
+    console.error("Error to connect", err);
+}
 
-//connectDB();
 export default client;
