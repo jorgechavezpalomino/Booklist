@@ -36,49 +36,34 @@ app.post("/api/books", async(req, res) => {
     res.status(500).json({error: "Error adding book"});
   }
 });
-/*app.post("/api/books", (req, res) => {
-  const { title, author } = req.body;
 
-  if (!title || !author) {
-    return res.status(400).json({message: "Missing tittle or author"})
-  }
-
-  const newBook = {
-    id: getNextId(),
-    title,
-    author
-  };
-
-  books.push(newBook);
-  res.status(201).json(newBook);
-})
-
-function getBookId(req) {
+app.delete("/api/books/:id", async (req, res) => {
   const id = parseInt(req.params.id);
-  if (isNaN(id)) {
-    return null;
-  } else {
-    return id;
-  }
-}
 
-app.delete("/api/books/:id", (req, res) => {
-  const id = parseInt(req.params.id);
-  const index = books.findIndex(b => b.id === id);
-
-  if (index === -1) {
-    return res.status(404).json({ message: "Book not found" });
+  try {
+    const result = await client.query("DELETE FROM books WHERE id = $1", [id]);
+    if (result.rowCount === 0) {
+      return res.status(404).json({error: "Book not found"});
+    }
+    res.sendStatus(204);
+    
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({error: "Error deleting book"});
   }
 
-  books.splice(index, 1);
-  res.json({ message: "Book deleted successfully" });
 });
 
-app.delete("/api/books", (req, res) => {
-  books = [];
-  res.json({ message: "All books deleted", ok: true });
+app.delete("/api/books", async (req, res) => {
+  try {
+    const result = await client.query("DELETE FROM books;");
+    res.sendStatus(204);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({error: "Error deleting all books"})
+  }
+  
 });
-*/
 
 app.listen(PORT, () => {
   console.log(`Servidor escuchando en http://localhost:${PORT}`);
