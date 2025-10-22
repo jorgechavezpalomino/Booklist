@@ -1,0 +1,5 @@
+body { font-family: Arial; display: flex; height: 100vh; align-items: center; justify-content: center; background: #f0f0f0; }
+h2 {text-align: center;}
+form { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+input { display: block; margin: 10px 0; padding: 8px; width: 200px; }
+button { display: block; margin: 15px auto; padding: 8px 15px; cursor: pointer; }
