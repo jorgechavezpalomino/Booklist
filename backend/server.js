@@ -65,7 +65,7 @@ function requireLogin(req, res, next) {
 }
 
 app.get("/", (req, res) => {
-  res.send("API de libros funcionando");
+  res.send("API books working");
 });
 
 app.get("/api/books", requireLogin, async (req, res) => {
