@@ -91,8 +91,6 @@ addForm.addEventListener("submit", async (e) => {
 
 resetButton.addEventListener("click", async () => {
   if (!confirm("¿Are you sure to delete all books?")) return;
-  {
-  }
 
   try {
     const res = await fetch(apiUrl, { method: "DELETE" });
