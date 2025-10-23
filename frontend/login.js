@@ -1,5 +1,5 @@
 const loginForm = document.getElementById("loginForm");
-const apiUrl = "http://localhost:3000/login";
+const apiUrl = "https://booklist-server-mcu0.onrender.com/login";
 
 loginForm.addEventListener("submit", async (e) => {
   e.preventDefault();

@@ -3,20 +3,16 @@ import cors from "cors";
 import session from "express-session";
 import bcrypt from "bcrypt";
 import client from "./database.js";
-import path from "path";
-import { fileURLToPath } from "url";
 
 const app = express();
 const PORT = 3000;
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
 // serve static files in the server
-app.use(express.static(path.join(__dirname, "../frontend")));
-
+//app.use(express.static(path.join(__dirname, "../frontend")));
 app.use(express.json());
-app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+app.use(
+  cors({ origin: "https://booklist-7603.onrender.com", credentials: true })
+);
+app.set("trust proxy", 1);
 //config sessions
 app.use(
   session({
@@ -24,9 +20,9 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      secure: false,
+      secure: true,
       httpOnly: true,
-      sameSite: "lax",
+      sameSite: "none",
     },
   })
 );
