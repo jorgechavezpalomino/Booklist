@@ -16,7 +16,7 @@ app.set("trust proxy", 1);
 //config sessions
 app.use(
   session({
-    secret: process.env.secret, //enviromental variable
+    secret: process.env.SECRET, //enviromental variable
     resave: false,
     saveUninitialized: false,
     cookie: {
