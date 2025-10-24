@@ -4,14 +4,25 @@ const authorInput = document.getElementById("author");
 const message = document.getElementById("message");
 const booksList = document.getElementById("booksList");
 const resetButton = document.getElementById("resetButton");
-const apiUrl = "https://booklist-server-mcu0.onrender.com/api/books";
+const logoutButton = document.getElementById("logoutButton");
+
+const hostname = window.location.hostname;
+const isLocal = hostname === "localhost" || hostname === "127.0.0.1";
+
+if (isLocal) {
+  baseUrl = "http://localhost:3000";
+} else {
+  baseUrl = "https://booklist-server-mcu0.onrender.com";
+}
+
+apiUrl = `${baseUrl}/api/books`;
 
 function showMessage(text, isError = false) {
   message.textContent = text;
-  if ((message.className = isError)) {
-    isError = "error";
+  if (isError) {
+    message.className = "error";
   } else {
-    isError = "ok";
+    message.className = "ok";
   }
 
   setTimeout(() => {
@@ -23,7 +34,9 @@ function showMessage(text, isError = false) {
 async function loadBooks() {
   booksList.innerHTML = ""; // clean
   try {
-    const res = await fetch(apiUrl);
+    const res = await fetch(apiUrl, {
+      credentials: "include",
+    });
 
     if (!res.ok) {
       throw new Error("Error in response");
@@ -75,6 +88,7 @@ addForm.addEventListener("submit", async (e) => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newBook),
+      credentials: "include",
     });
 
     if (!res.ok) {
@@ -89,11 +103,30 @@ addForm.addEventListener("submit", async (e) => {
   }
 });
 
+logoutButton.addEventListener("click", async () => {
+  try {
+    const res = await fetch(`${baseUrl}/logout`, {
+      method: "GET",
+      credentials: "include",
+    });
+
+    if (res.ok) {
+      window.location.href = "index.html";
+    }
+  } catch (error) {
+    showMessage("Error to log out " + error.message, true);
+  }
+});
+
 resetButton.addEventListener("click", async () => {
   if (!confirm("¿Are you sure to delete all books?")) return;
 
   try {
-    const res = await fetch(apiUrl, { method: "DELETE" });
+    const res = await fetch(apiUrl, {
+      method: "DELETE",
+      credentials: "include",
+    });
+
     if (!res.ok) {
       throw new Error("Error deleting books");
     }
@@ -113,7 +146,11 @@ booksList.addEventListener("click", async (e) => {
     }
 
     try {
-      const res = await fetch(`${apiUrl}/${id}`, { method: "DELETE" });
+      const res = await fetch(`${apiUrl}/${id}`, {
+        method: "DELETE",
+        credentials: "include",
+      });
+
       if (!res.ok) {
         throw new Error("Error to try delete the book");
       }

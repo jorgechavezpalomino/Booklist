@@ -1,11 +1,32 @@
 const loginForm = document.getElementById("loginForm");
-const apiUrl = "https://booklist-server-mcu0.onrender.com/login";
+const hostname = window.location.hostname;
+const isLocal = hostname === "localhost" || hostname === "127.0.0.1";
+
+if (isLocal) {
+  apiUrl = "http://localhost:3000/login";
+} else {
+  apiUrl = "https://booklist-server-mcu0.onrender.com/login";
+}
+
+function showMessage(text, isError = false) {
+  message.textContent = text;
+  if (isError) {
+    message.className = "error";
+  } else {
+    message.className = "ok";
+  }
+
+  setTimeout(() => {
+    message.className = "hidden";
+    message.textContent = "";
+  }, 3000);
+}
 
 loginForm.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const username = document.getElementById("username").value;
-  const password = document.getElementById("password").value;
+  const username = document.getElementById("username").value.trim();
+  const password = document.getElementById("password").value.trim();
 
   try {
     const res = await fetch(apiUrl, {
@@ -15,14 +36,15 @@ loginForm.addEventListener("submit", async (e) => {
       credentials: "include",
     });
 
-    await res.json();
     if (res.ok) {
       window.location.href = "books.html";
     } else {
-      alert("Invalid username or password");
+      showMessage("Invalid username or password");
     }
   } catch (error) {
     console.error("Error: ", error);
-    alert("Error logging in ");
+    showMessage("Error logging in");
+  } finally {
+    loginForm.reset();
   }
 });
