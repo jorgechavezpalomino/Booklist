@@ -7,7 +7,7 @@ const resetButton = document.getElementById("resetButton");
 const logoutButton = document.getElementById("logoutButton");
 
 const hostname = window.location.hostname;
-const isLocal = hostname === "localhost" || hostname === "127.0.0.1";
+const isLocal = hostname === "localhost";
 
 if (isLocal) {
   baseUrl = "http://localhost:3000";
