@@ -15,9 +15,8 @@ loginForm.addEventListener("submit", async (e) => {
       credentials: "include",
     });
 
-    const data = await res.json();
+    await res.json();
     if (res.ok) {
-      alert("Login sucessful");
       window.location.href = "books.html";
     } else {
       alert("Invalid username or password");

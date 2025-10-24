@@ -8,10 +8,10 @@ const apiUrl = "https://booklist-server-mcu0.onrender.com/api/books";
 
 function showMessage(text, isError = false) {
   message.textContent = text;
-  if (isError) {
-    message.className = "error";
+  if ((message.className = isError)) {
+    isError = "error";
   } else {
-    message.className = "ok";
+    isError = "ok";
   }
 
   setTimeout(() => {
@@ -23,10 +23,7 @@ function showMessage(text, isError = false) {
 async function loadBooks() {
   booksList.innerHTML = ""; // clean
   try {
-    const res = await fetch(apiUrl, {
-      method: "GET",
-      credentials: "include",
-    });
+    const res = await fetch(apiUrl);
 
     if (!res.ok) {
       throw new Error("Error in response");
@@ -78,7 +75,6 @@ addForm.addEventListener("submit", async (e) => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newBook),
-      credentials: "include",
     });
 
     if (!res.ok) {
@@ -95,14 +91,9 @@ addForm.addEventListener("submit", async (e) => {
 
 resetButton.addEventListener("click", async () => {
   if (!confirm("¿Are you sure to delete all books?")) return;
-  {
-  }
 
   try {
-    const res = await fetch(apiUrl, {
-      method: "DELETE",
-      credentials: "include",
-    });
+    const res = await fetch(apiUrl, { method: "DELETE" });
     if (!res.ok) {
       throw new Error("Error deleting books");
     }
@@ -122,10 +113,7 @@ booksList.addEventListener("click", async (e) => {
     }
 
     try {
-      const res = await fetch(`${apiUrl}/${id}`, {
-        method: "DELETE",
-        credentials: "include",
-      });
+      const res = await fetch(`${apiUrl}/${id}`, { method: "DELETE" });
       if (!res.ok) {
         throw new Error("Error to try delete the book");
       }
