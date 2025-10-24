@@ -1,6 +1,6 @@
 const loginForm = document.getElementById("loginForm");
 const hostname = window.location.hostname;
-const isLocal = hostname === "localhost" || hostname === "127.0.0.1";
+const isLocal = hostname === "localhost";
 
 if (isLocal) {
   apiUrl = "http://localhost:3000/login";
