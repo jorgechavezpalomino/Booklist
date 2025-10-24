@@ -7,15 +7,12 @@ import client from "./database.js";
 const app = express();
 const PORT = 3000;
 
-//config sessions
 app.use(express.json());
 app.use(
   cors({ origin: "https://booklist-7603.onrender.com", credentials: true })
 );
-
 app.set("trust proxy", 1);
-
-//config sessions using https sites
+//config sessions
 app.use(
   session({
     secret: process.env.SECRET, //enviromental variable
