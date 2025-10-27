@@ -40,6 +40,7 @@ async function handleLoginForm(e) {
   const username = document.getElementById("username").value.trim();
   const password = document.getElementById("password").value.trim();
 
+  showMessage("Loading please wait...", "loading");
   try {
     const res = await fetch(apiUrl, {
       method: "POST",
