@@ -42,19 +42,19 @@ npm install
 3. **Create .env file in backend/ folder:**
 
 PORT=3000
-FRONTEND_URL=https://your-production-frontend-url
-DATABASE_URL=your_postgres_connection_string
-SECRET=my_secret
+FRONTEND_URL=https://your-production-frontend-url  
+DATABASE_URL=your_postgres_connection_string  
+SECRET=my_secret  
 
 4. **Frontend configuration (frontend/config.json):**
 
-{
-  "PORT": 3000,
-  "BACKEND_PROD": "https://your-production-backend-url"
-}
+{  
+  "PORT": 3000,  
+  "BACKEND_PROD": "https://your-production-backend-url"  
+}  
 
 ## Running the Project
-- Local
+- Local  
 
 Start the backend server:  
 node backend/server.js  
