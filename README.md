@@ -8,7 +8,7 @@ BookList is a simple web application to manage your book collection. It features
 - User login with session management  
 - Add, view, delete individual books  
 - Reset the entire book list  
-- Local and production-ready configuration
+- Local and production-ready configuration  
   
 ## Project Structure
 
@@ -54,7 +54,7 @@ SECRET=my_secret
 }  
 
 ## Running the Project
-- Local  
+- Local
 
 Start the backend server:  
 node backend/server.js  
@@ -83,5 +83,5 @@ Endpoint	Method	Description
 /api/books/:id	DELETE	Delete a specific book  
 /api/books	DELETE	Delete all books  
 
-- All  
+- All
 /api/books endpoints require an authenticated session.  
