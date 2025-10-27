@@ -17,9 +17,7 @@ const isProduction = nodeEnv === "production";
 app.use(express.json());
 
 if (isProduction) {
-  app.use(
-    cors({ origin: "https://booklist-7603.onrender.com", credentials: true })
-  );
+  app.use(cors({ origin: process.env.FRONTEND_URL, credentials: true }));
   app.set("trust proxy", 1);
 } else {
   const __filename = fileURLToPath(import.meta.url);
@@ -27,7 +25,7 @@ if (isProduction) {
   app.use(express.static(path.join(__dirname, "../frontend")));
   app.use(
     cors({
-      origin: "http://localhost:3000",
+      origin: `http://localhost:${process.env.PORT}`,
       credentials: true,
     })
   );

@@ -1,11 +1,23 @@
 const loginForm = document.getElementById("loginForm");
-const hostname = window.location.hostname;
-const isLocal = hostname === "localhost";
+const message = document.getElementById("message");
 
-if (isLocal) {
-  apiUrl = "http://localhost:3000/login";
-} else {
-  apiUrl = "https://booklist-server-mcu0.onrender.com/login";
+let baseUrl;
+let apiUrl;
+
+async function loadConfig() {
+  const res = await fetch("config.json");
+  const config = await res.json();
+
+  const hostname = window.location.hostname;
+  const isLocal = hostname === "localhost";
+
+  if (isLocal) {
+    baseUrl = `http://localhost:${config.PORT}`;
+  } else {
+    baseUrl = config.BACKEND_PROD;
+  }
+
+  apiUrl = `${baseUrl}/login`;
 }
 
 function showMessage(text, isError = false) {
@@ -22,7 +34,7 @@ function showMessage(text, isError = false) {
   }, 3000);
 }
 
-loginForm.addEventListener("submit", async (e) => {
+async function handleLoginForm(e) {
   e.preventDefault();
 
   const username = document.getElementById("username").value.trim();
@@ -47,4 +59,11 @@ loginForm.addEventListener("submit", async (e) => {
   } finally {
     loginForm.reset();
   }
-});
+}
+
+async function init() {
+  await loadConfig();
+  loginForm.addEventListener("submit", handleLoginForm);
+}
+
+init();

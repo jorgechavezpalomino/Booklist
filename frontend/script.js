@@ -6,16 +6,23 @@ const booksList = document.getElementById("booksList");
 const resetButton = document.getElementById("resetButton");
 const logoutButton = document.getElementById("logoutButton");
 
-const hostname = window.location.hostname;
-const isLocal = hostname === "localhost";
+let baseUrl;
+let apiUrl;
 
-if (isLocal) {
-  baseUrl = "http://localhost:3000";
-} else {
-  baseUrl = "https://booklist-server-mcu0.onrender.com";
+async function loadConfig() {
+  const res = await fetch("config.json");
+  const config = await res.json();
+
+  const hostname = window.location.hostname;
+  const isLocal = hostname === "localhost";
+
+  if (isLocal) {
+    baseUrl = `http://localhost:${config.PORT}`;
+  } else {
+    baseUrl = config.BACKEND_PROD;
+  }
+  apiUrl = `${baseUrl}/api/books`;
 }
-
-apiUrl = `${baseUrl}/api/books`;
 
 function showMessage(text, isError = false) {
   message.textContent = text;
@@ -31,7 +38,7 @@ function showMessage(text, isError = false) {
   }, 3000);
 }
 
-async function loadBooks() {
+async function handleLoadBooks() {
   booksList.innerHTML = ""; // clean
   try {
     const res = await fetch(apiUrl, {
@@ -71,7 +78,7 @@ async function loadBooks() {
   }
 }
 
-addForm.addEventListener("submit", async (e) => {
+async function handleAddForm(e) {
   e.preventDefault();
   const newBook = {
     title: titleInput.value.trim(),
@@ -101,9 +108,9 @@ addForm.addEventListener("submit", async (e) => {
   } catch (error) {
     showMessage("Error: " + error.message, true);
   }
-});
+}
 
-logoutButton.addEventListener("click", async () => {
+async function handleLogoutButton(e) {
   try {
     const res = await fetch(`${baseUrl}/logout`, {
       method: "GET",
@@ -116,9 +123,9 @@ logoutButton.addEventListener("click", async () => {
   } catch (error) {
     showMessage("Error to log out " + error.message, true);
   }
-});
+}
 
-resetButton.addEventListener("click", async () => {
+async function handleResetButton(e) {
   if (!confirm("¿Are you sure to delete all books?")) return;
 
   try {
@@ -136,9 +143,9 @@ resetButton.addEventListener("click", async () => {
   } catch (error) {
     showMessage("Error: " + error.message, true);
   }
-});
+}
 
-booksList.addEventListener("click", async (e) => {
+async function handleBooksList(e) {
   if (e.target.classList.contains("deleteButton")) {
     const id = e.target.dataset.id;
     if (!confirm("Are you sure to delete this book?")) {
@@ -160,6 +167,19 @@ booksList.addEventListener("click", async (e) => {
       showMessage("Error to deleted the book: " + error.message, true);
     }
   }
-});
+}
 
-loadBooks();
+function setupEventListeners() {
+  addForm.addEventListener("submit", handleAddForm);
+  logoutButton.addEventListener("click", handleLogoutButton);
+  resetButton.addEventListener("click", handleResetButton);
+  booksList.addEventListener("click", handleBooksList);
+}
+
+async function init() {
+  await loadConfig();
+  setupEventListeners();
+  handleLoadBooks();
+}
+
+init();
