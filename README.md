@@ -83,5 +83,5 @@ Endpoint	Method	Description
 /api/books/:id	DELETE	Delete a specific book  
 /api/books	DELETE	Delete all books  
 
-- All
+- All  
 /api/books endpoints require an authenticated session.  
