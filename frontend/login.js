@@ -11,8 +11,10 @@ async function loadConfig() {
   const hostname = window.location.hostname;
   const isLocal = hostname === "localhost";
 
+  const port = config.PORT || 3000;
+
   if (isLocal) {
-    baseUrl = `http://localhost:${config.PORT}`;
+    baseUrl = `http://localhost:${port}`;
   } else {
     baseUrl = config.BACKEND_PROD;
   }
