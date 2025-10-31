@@ -91,7 +91,7 @@ VALUES ('admin', '$2b$10$M8YHKqFGDVIyoqGT0PnucOtRqsWzB78OgaAI99waMGUYCU0mDX8UC')
 
 - The URL of you database conection string. If you use postgres you can use the following URL format to create it:
 
-    `DATABASE_URL=postgresql://<USER>:<PASSWORD>@<HOST>/<DATABASE>`
+    `DATABASE_URL=postgresql://<USER>:<PASSWORD>@<HOST>/<DATABASE_NAME>`
 
 - The 'SECRET' variable is used by Express Session to sign and verify cookies. It ensures that session cookies cannot be modified by the client. You can change the secret word to something you prefer. For example
 
@@ -132,6 +132,10 @@ VALUES ('admin', '$2b$10$M8YHKqFGDVIyoqGT0PnucOtRqsWzB78OgaAI99waMGUYCU0mDX8UC')
 - The 'SECRET' variable is used by Express Session to sign and verify cookies. It ensures that session cookies cannot be modified by the client. You can change the secret word to something you prefer. For example
 
     `SECRET="my_secret"`
+
+- Add this variable to enable SSL
+
+    `USE_SSL = "true"`
 
 2. **Frontend configuration (frontend/config.json):**
 
