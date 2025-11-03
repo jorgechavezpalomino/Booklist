@@ -7,7 +7,7 @@ You can test the web app here https://booklist-7603.onrender.com
 
 User is "admin"
 
-Password is "1234"
+Password is "2{287D}D13|b"
 
 ## Features
 
@@ -78,7 +78,7 @@ CREATE TABLE users (
 
 ```
 INSERT INTO users (username, password_hash)
-VALUES ('admin', '$2b$10$M8YHKqFGDVIyoqGT0PnucOtRqsWzB78OgaAI99waMGUYCU0mDX8UC');
+VALUES ('admin', '$2b$10$2le.ibiVre6WJINc3k2aj.MgEJSgbgEC7Mfium6QqpYvcUUV0pTVG');
 ```
 
 ## Run in Local
@@ -113,7 +113,7 @@ VALUES ('admin', '$2b$10$M8YHKqFGDVIyoqGT0PnucOtRqsWzB78OgaAI99waMGUYCU0mDX8UC')
 
   `node server.js`
 
-- Open the host local with the port that youspecified before in your browser
+- Open the host local with the port that you specified earlier in your browser
 
   `http://localhost:3000/`
 

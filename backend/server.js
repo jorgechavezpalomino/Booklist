@@ -66,14 +66,14 @@ app.post("/login", async (req, res) => {
     );
 
     if (result.rows.length === 0) {
-      return res.status(401).json({ error: "Username or password incorrect" });
+      return res.status(401).json({ error: "Invalid username or password" });
     }
 
     const user = result.rows[0];
     const match = await bcrypt.compare(password, user.password_hash);
 
     if (!match) {
-      return res.status(401).json({ error: "User or password incorrect" });
+      return res.status(401).json({ error: "Invalid username or password" });
     }
 
     req.session.userId = user.id;
