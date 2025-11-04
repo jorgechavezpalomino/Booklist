@@ -1,5 +1,3 @@
-import { type } from "os";
-
 const loginForm = document.getElementById("loginForm");
 const message = document.getElementById("message");
 
