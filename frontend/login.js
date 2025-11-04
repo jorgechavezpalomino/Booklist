@@ -31,7 +31,7 @@ function showMessage(text, isError = false) {
     message.className = "ok";
   }
 
-  if (type !== "loading") {
+  if (isError !== "loading") {
     setTimeout(() => {
       message.className = "hidden";
       message.textContent = "";
