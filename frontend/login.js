@@ -24,16 +24,19 @@ async function loadConfig() {
 
 function showMessage(text, isError = false) {
   message.textContent = text;
+
   if (isError) {
     message.className = "error";
   } else {
     message.className = "ok";
   }
 
-  setTimeout(() => {
-    message.className = "hidden";
-    message.textContent = "";
-  }, 3000);
+  if (isError !== "loading") {
+    setTimeout(() => {
+      message.className = "hidden";
+      message.textContent = "";
+    }, 3000);
+  }
 }
 
 async function handleLoginForm(e) {
@@ -58,7 +61,7 @@ async function handleLoginForm(e) {
     }
   } catch (error) {
     console.error("Error: ", error);
-    showMessage("Error logging in");
+    showMessage("There is an error, try again later");
   } finally {
     loginForm.reset();
   }

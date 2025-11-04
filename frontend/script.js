@@ -104,7 +104,7 @@ async function handleAddForm(e) {
 
     showMessage("Book added correctly");
     addForm.reset();
-    loadBooks();
+    handleLoadBooks();
   } catch (error) {
     showMessage("Error: " + error.message, true);
   }
@@ -139,7 +139,7 @@ async function handleResetButton(e) {
     }
 
     showMessage("Book list deleted");
-    loadBooks();
+    handleLoadBooks();
   } catch (error) {
     showMessage("Error: " + error.message, true);
   }
@@ -162,7 +162,7 @@ async function handleBooksList(e) {
         throw new Error("Error to try delete the book");
       }
       showMessage("The book was deleted correctly");
-      loadBooks();
+      handleLoadBooks();
     } catch (error) {
       showMessage("Error to deleted the book: " + error.message, true);
     }
