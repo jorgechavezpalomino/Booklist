@@ -1,3 +1,5 @@
+import { type } from "os";
+
 const loginForm = document.getElementById("loginForm");
 const message = document.getElementById("message");
 
@@ -24,16 +26,19 @@ async function loadConfig() {
 
 function showMessage(text, isError = false) {
   message.textContent = text;
+
   if (isError) {
     message.className = "error";
   } else {
     message.className = "ok";
   }
 
-  setTimeout(() => {
-    message.className = "hidden";
-    message.textContent = "";
-  }, 3000);
+  if (type !== "loading") {
+    setTimeout(() => {
+      message.className = "hidden";
+      message.textContent = "";
+    }, 3000);
+  }
 }
 
 async function handleLoginForm(e) {
@@ -42,7 +47,7 @@ async function handleLoginForm(e) {
   const username = document.getElementById("username").value.trim();
   const password = document.getElementById("password").value.trim();
 
-  showMessage("Loading please wait...", "loading");
+  showMessage("Loading please wait...", "loading"); //que dure mas tiempo en pantalla
   try {
     const res = await fetch(apiUrl, {
       method: "POST",
@@ -58,7 +63,7 @@ async function handleLoginForm(e) {
     }
   } catch (error) {
     console.error("Error: ", error);
-    showMessage("Error logging in");
+    showMessage("There is an error, try again later");
   } finally {
     loginForm.reset();
   }
